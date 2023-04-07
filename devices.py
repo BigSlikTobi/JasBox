@@ -16,6 +16,10 @@ sp = spotipy.Spotify(auth=tokens["access_token"])
 # Get the devices
 devices = sp.devices()
 
+# Write devices to a json 
+with open('devices.json', 'w') as f:
+    json.dump(devices, f, indent=4)
+
 # Print the devices
 for device in devices["devices"]:
     print(device["name"], "-", device["id"])

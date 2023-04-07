@@ -1,0 +1,58 @@
+{
+    "devices": [
+        {
+            "id": "c993cc059ed0bc98798c7382e164138e7ee20f1c",
+            "is_active": false,
+            "is_private_session": false,
+            "is_restricted": false,
+            "name": "Tobias' FireTVStick",
+            "type": "TV",
+            "volume_percent": 80
+        },
+        {
+            "id": "18f64e611c1eebf8885594a4b4e04d30eacfbbf8",
+            "is_active": false,
+            "is_private_session": false,
+            "is_restricted": false,
+            "name": "7090GLOBAL",
+            "type": "Computer",
+            "volume_percent": 79
+        },
+        {
+            "id": "2e9533058752353a94c1c9d987980196bbda6620",
+            "is_active": false,
+            "is_private_session": false,
+            "is_restricted": false,
+            "name": "\u00dcberall",
+            "type": "Speaker",
+            "volume_percent": 36
+        },
+        {
+            "id": "8eb32097-34b3-47a3-95c8-5fb48da60ce8_amzn_1",
+            "is_active": true,
+            "is_private_session": false,
+            "is_restricted": false,
+            "name": "Tobias' Echo",
+            "type": "Speaker",
+            "volume_percent": 9
+        },
+        {
+            "id": "17b1ba72-5f86-4fb7-9c30-c6ea6e9f70e5_amzn_1",
+            "is_active": false,
+            "is_private_session": false,
+            "is_restricted": false,
+            "name": "Tobias' Echo Dot",
+            "type": "Speaker",
+            "volume_percent": 20
+        },
+        {
+            "id": "f3d24f44-521c-4ae8-8f56-d8e6ed34e5d0_amzn_1",
+            "is_active": false,
+            "is_private_session": false,
+            "is_restricted": false,
+            "name": "Jasmins Alexa",
+            "type": "Speaker",
+            "volume_percent": 20
+        }
+    ]
+}
