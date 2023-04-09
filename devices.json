@@ -29,12 +29,12 @@
         },
         {
             "id": "8eb32097-34b3-47a3-95c8-5fb48da60ce8_amzn_1",
-            "is_active": true,
+            "is_active": false,
             "is_private_session": false,
             "is_restricted": false,
             "name": "Tobias' Echo",
             "type": "Speaker",
-            "volume_percent": 9
+            "volume_percent": 40
         },
         {
             "id": "17b1ba72-5f86-4fb7-9c30-c6ea6e9f70e5_amzn_1",
