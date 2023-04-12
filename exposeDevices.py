@@ -1,7 +1,9 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import json
 
 app = Flask(__name__)
+CORS(app) # Add this line to enable CORS
 
 @app.route('/devices')
 def devices():
@@ -12,4 +14,3 @@ def devices():
 
 if __name__ == '__main__':
     app.run(debug=True, port=4001)
-

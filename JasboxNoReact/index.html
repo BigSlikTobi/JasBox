@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Device Gallery</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      #fetch-button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      #fetch-button:hover {
+        background-color: #3e8e41;
+      }
+
+      #device-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .device-card {
+        width: 300px;
+        height: 200px;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden; /* add this to hide the overflow of the image */
+}
+
+      .device-card img {
+          max-width: 100%; /* add this to make the image fit within the container */
+          height: auto;
+      }
+
+      .device-card h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .device-card p {
+        margin: 0;
+        font-size: 14px;
+        color: #666;
+      }
+      
+      .selectbutton {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #3e8e41;
+    </style>
+    
+  </head>
+  <body>
+  <h1>Device Gallery</h1>
+  <div id="device-container"></div>
+  <script>
+    const deviceContainer = document.getElementById('device-container');
+    let selectedDeviceCard = null;
+
+    // Load the images from the JSON file
+    const images = [
+      {
+        "id": "c993cc059ed0bc98798c7382e164138e7ee20f1c",
+        "path": "images/FireTv.png"
+      },
+      {
+        "id": "18f64e611c1eebf8885594a4b4e04d30eacfbbf8",
+        "path": ""
+      },
+      {
+        "id": "2e9533058752353a94c1c9d987980196bbda6620",
+        "path": "images/Haus.png"
+      },
+      {
+        "id": "8eb32097-34b3-47a3-95c8-5fb48da60ce8_amzn_1",
+        "path": "EchoDot.png"
+      },
+      {
+        "id": "17b1ba72-5f86-4fb7-9c30-c6ea6e9f70e5_amzn_1",
+        "path": "images/TobiAlexa.png"
+      },
+      {
+        "id": "f3d24f44-521c-4ae8-8f56-d8e6ed34e5d0_amzn_1",
+        "path": "images/JasminAlexa.png"
+      }
+    ];
+
+    // Load the devices from the API
+    async function fetchDevices() {
+      const response = await fetch('http://localhost:4001/devices');
+      const devices = await response.json();
+      return devices;
+    }
+
+    // Render the devices with their corresponding images
+    async function renderDevices() {
+      const devices = await fetchDevices();
+
+      devices.forEach(device => {
+        const deviceCard = document.createElement('div');
+        deviceCard.classList.add('device-card');
+
+        const deviceName = document.createElement('h2');
+        deviceName.textContent = device.name;
+
+        const deviceDescription = document.createElement('p');
+        deviceDescription.textContent = device.description;
+
+        const deviceImage = document.createElement('img');
+        const deviceImageURL = images.find(image => image.id === device.id).path;
+        if(deviceImageURL) {
+          deviceImage.src = deviceImageURL;
+          deviceImage.style.maxWidth = '100%'; 
+          deviceImage.style.maxHeight = '100%'; // make sure image fits container
+        } else {
+          console.log(`No image path found for device with id ${device.id}`);
+        }
+
+        deviceCard.appendChild(deviceName);
+        deviceCard.appendChild(deviceDescription);
+        deviceCard.appendChild(deviceImage);
+
+        deviceCard.addEventListener('click', () => {
+          if(selectedDeviceCard !== null) {
+            deviceContainer.removeChild(selectedDeviceCard);
+          }
+
+          selectedDeviceCard = document.createElement('div');
+          selectedDeviceCard.classList.add('device-card', 'selected-device-card');
+
+          const selectedDeviceName = document.createElement('h2');
+          selectedDeviceName.textContent = device.name;
+
+          const selectedDeviceDescription = document.createElement('p');
+          selectedDeviceDescription.textContent = device.description;
+
+          const selectedDeviceImage = document.createElement('img');
+          selectedDeviceImage.src = deviceImageURL;
+          selectedDeviceImage.style.maxWidth = '100%';
+          selectedDeviceImage.style.maxHeight = '60%';
+
+          const playButton = document.createElement('button');
+      playButton.textContent = 'Los gehts';
+      playButton.addEventListener('click', async () => {
+  const response = await fetch('http://localhost:4000/select-device', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id: device.id })
+  });
+
+  if (response.ok) {
+    console.log('Successfully select device:', device.name);
+  } else {
+    console.log('Error  selecting:', response.status);
+  }
+});
+
+      selectedDeviceCard.appendChild(selectedDeviceName);
+      selectedDeviceCard.appendChild(selectedDeviceDescription);
+      selectedDeviceCard.appendChild(selectedDeviceImage);
+      selectedDeviceCard.appendChild(playButton);
+
+      deviceContainer.appendChild(selectedDeviceCard);
+    });
+
+    deviceContainer.appendChild(deviceCard);
+  });
+}
+
+renderDevices();
+  </script>
+</body>
+</html>
